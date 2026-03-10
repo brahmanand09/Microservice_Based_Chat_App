@@ -1,3 +1,5 @@
 # Chat App
 
 ## Technologies:
+
+** MERN **
