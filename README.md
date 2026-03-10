@@ -17,3 +17,8 @@
 <img src="https://img.shields.io/badge/Cloudinary-3448C5?style=for-the-badge&logo=cloudinary&logoColor=white"/>
 <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white"/>
 </p>
+
+## Project Based
+<p>
+  <img src="https://img.shields.io/badge/Microservices-FF6F00?style=for-the-badge&logo=icloud&logoColor=white"/>
+</p>
