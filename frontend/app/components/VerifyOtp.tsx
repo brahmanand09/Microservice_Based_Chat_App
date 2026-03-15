@@ -6,9 +6,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import Cookies from 'js-cookie';
 import { useAppData, user_service } from '../context/AppContext';
 import Loading from './Loading';
+import toast from 'react-hot-toast';
 
 const VerifyOtp = () => {
-  const { isAuth, setIsAuth, setUser, loading: userLoading } = useAppData();
+  const { isAuth, setIsAuth, setUser, loading: userLoading, fetchChats, fetchUsers } = useAppData();
   const [loading, setLoading] = useState(false);
   const [otp, setOtp] = useState<string[]>(["", "", "", "", "", ""]);
   const [error, setError] = useState<string>("");
@@ -75,7 +76,7 @@ const VerifyOtp = () => {
         email,
         otp: otpString,
       });
-      alert(data.message);
+      toast.success(data.message);
       Cookies.set("token", data.token, {
         expires: 15,
         secure: false,
@@ -85,6 +86,8 @@ const VerifyOtp = () => {
       inputRef.current[0]?.focus();
       setUser(data.user);
       setIsAuth(true);
+      fetchChats();
+      fetchUsers();
     } catch (error: any) {
       setError(error.response.data.message);
     } finally {
@@ -99,7 +102,7 @@ const VerifyOtp = () => {
       const { data } = await axios.post(`${user_service}/api/v1/login`, {
         email,
       });
-      alert(data.message);
+      toast.success(data.message);
       setTimer(60);
     } catch (error: any) {
       setError(error.response.data.message);
