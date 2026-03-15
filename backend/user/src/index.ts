@@ -15,10 +15,28 @@ if (!process.env.REDIS_URI) {
 }
  
 export const redisClient = createClient({
-    url: process.env.REDIS_URI,
+  url: process.env.REDIS_URI,
+  socket: {
+    reconnectStrategy: (retries) => {
+      console.log("Redis reconnect attempt:", retries);
+      return Math.min(retries * 50, 2000);
+    }
+  }
 });
 
-redisClient.connect().then(() => console.log("connected to redis")).catch(console.error);
+redisClient.on("error", (err) => {
+  console.error("Redis Error:", err);
+});
+
+redisClient.on("connect", () => {
+  console.log("Redis Connected");
+});
+
+redisClient.on("reconnecting", () => {
+  console.log("Redis Reconnecting...");
+});
+
+redisClient.connect();
 
 const app = express();
 
