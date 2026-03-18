@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { User } from '../context/AppContext';
-import { CornerDownRight, CornerUpLeft, Link, LogOut, MessageCircle, Plus, Search, UserCircle, X } from 'lucide-react';
+import { CornerDownRight, CornerUpLeft, LogOut, MessageCircle, Plus, Search, UserCircle, X } from 'lucide-react';
+import Link from 'next/link';
 
 interface ChatSidebarProps {
     sidebarOpen: boolean;
@@ -13,10 +14,11 @@ interface ChatSidebarProps {
     selectedUser: string | null;
     setSelectedUser: (userId: string | null) => void;
     handleLogout: () => void;
+    createChat: (user: User) => void;
 }
 
 const ChatSidebar = ({ sidebarOpen, setShowAllUsers, setSidebarOpen, showAllUsers, users, loggedInUser,
-    chats, selectedUser, setSelectedUser, handleLogout }: ChatSidebarProps) => {
+    chats, selectedUser, setSelectedUser, handleLogout, createChat }: ChatSidebarProps) => {
     const [serachQuery, setSerachQuery] = useState("");
     return (
         <aside className={`fixed z-20 sm:static top-0 left-0 h-screen w-80 bg-gray-900 border-r border-gray-700
@@ -64,23 +66,26 @@ const ChatSidebar = ({ sidebarOpen, setShowAllUsers, setSidebarOpen, showAllUser
                         {/* users list */}
                         <div className="space-y-2 overflow-y-auto h-full pb-4">
                             {
-                                users?.filter((u) => u._id !== loggedInUser?._id && u.name.toLowerCase().includes(serachQuery.toLocaleLowerCase())).map((u) => (
-                                    <button key={u._id} className='w-full text-left p-4 rounded-lg border
-                                    border-gray-700 hover:border-gray-600 hover:bg-gray-800 transition-colors'>
-                                        <div className="flex items-center gap-3">
-                                            <div className="relative">
-                                                <UserCircle className='w-6 h-6 text-gray-300' />
-                                            </div>
-                                            {/* online symbole */}
-                                            <div className="flex-1 min-w-0">
-                                                <span className="font-medium text-white">{u.name}</span>
-                                                <div className="text-xs text-gray-400 mt-0.5">
-                                                    {/* to show online offline text */}
+                                users?.filter((u) => u._id !== loggedInUser?._id && u.name.toLowerCase()
+                                    .includes(serachQuery.toLocaleLowerCase()))
+                                    .map((u) => (
+                                        <button key={u._id} className='w-full text-left p-4 rounded-lg border
+                                    border-gray-700 hover:border-gray-600 hover:bg-gray-800 transition-colors'
+                                            onClick={() => createChat(u)}>
+                                            <div className="flex items-center gap-3">
+                                                <div className="relative">
+                                                    <UserCircle className='w-6 h-6 text-gray-300' />
+                                                </div>
+                                                {/* online symbole */}
+                                                <div className="flex-1 min-w-0">
+                                                    <span className="font-medium text-white">{u.name}</span>
+                                                    <div className="text-xs text-gray-400 mt-0.5">
+                                                        {/* to show online offline text */}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </button>
-                                ))
+                                        </button>
+                                    ))
                             }
                         </div>
                     </div>
@@ -153,13 +158,13 @@ const ChatSidebar = ({ sidebarOpen, setShowAllUsers, setSidebarOpen, showAllUser
             {/* footer */}
             <div className="p-4 border-t border-gray-700 space-y-2">
                 <Link href={'/profile'} className='flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-800 transition-colors'>
-                    <div className="p-1.5 bg-gray-700 rounded-lg"><UserCircle className='w-4 h-4 text-gray-300'/></div>
+                    <div className="p-1.5 bg-gray-700 rounded-lg"><UserCircle className='w-4 h-4 text-gray-300' /></div>
                     <span className="font-medium text-gray-300">Profile</span>
                 </Link>
 
                 <button onClick={handleLogout} className='w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-red-600 transition-colors text-red-500
                 hover:text-white'>
-                    <div className="p-1.5 bg-red-600 rounded-lg"><LogOut className='w-4 h-4 text-gray-300'/></div>
+                    <div className="p-1.5 bg-red-600 rounded-lg"><LogOut className='w-4 h-4 text-gray-300' /></div>
                     <span className="font-medium text-gray-300">Logout</span>
                 </button>
             </div>
