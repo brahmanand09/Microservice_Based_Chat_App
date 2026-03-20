@@ -28,7 +28,9 @@ const ChatMessages = ({ selectedUser, messages, loggedInUser }: ChatMessagesProp
         bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [selectedUser, uniqueMessages]);
 
-    return <div className='flex '>ChatMessages</div>;
+    return <div className='flex '>
+        
+    </div>;
 }
 
 export default ChatMessages;
