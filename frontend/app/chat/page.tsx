@@ -204,9 +204,9 @@ const ChatApp = () => {
         selectedUser!,
         {
           text: displayText,
-          sender: data.sender
+          sender: data.sender,
         },
-        false,
+        false
       );
     } catch (error: any) {
       toast.error(error.response.data.message);
