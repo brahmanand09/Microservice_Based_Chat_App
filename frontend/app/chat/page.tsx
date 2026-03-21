@@ -15,7 +15,7 @@ export interface Message {
   chatId: string;
   senderId: string;
   text?: string;
-  imgae?: {
+  image?: {
     url: string;
     publicId: string;
   };
