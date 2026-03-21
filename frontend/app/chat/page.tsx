@@ -31,9 +31,7 @@ const ChatApp = () => {
   const { isAuth, loading, logoutUser, fetchChats, user: loggedInUser,
     chats, users, setChats } = useAppData();
 
-  const { onlineUsers } = SocketData();
-
-  console.log(onlineUsers);
+  const { onlineUsers, socket } = SocketData();
 
   const [selectedUser, setSelectedUser] = useState<string | null>(null);
   const [message, setMessage] = useState("");
@@ -100,6 +98,15 @@ const ChatApp = () => {
     if (!selectedUser) return;
 
     // socket work
+    if (typingTimeOut) {
+      clearTimeout(typingTimeOut);
+      setTypingTimeOut(null);
+    }
+
+    socket?.emit("stopTyping", {
+      chatId: selectedUser,
+      userId: loggedInUser?._id,
+    });
 
     const token = Cookies.get("token");
     try {
@@ -145,28 +152,94 @@ const ChatApp = () => {
   const handleTyping = (value: string) => {
     setMessage(value);
 
-    if (!selectedUser) return;
+    if (!selectedUser || !socket) return;
 
     // socket setup
+    if (value.trim()) {
+      socket.emit("typing", {
+        chatId: selectedUser,
+        userId: loggedInUser?._id,
+      });
+    }
+
+    if (typingTimeOut) {
+      clearTimeout(typingTimeOut);
+    }
+
+    const timeout = setTimeout(() => {
+      socket.emit("stopTyping", {
+        chatId: selectedUser,
+        userId: loggedInUser?._id,
+      });
+    }, 2000);
+
+    setTypingTimeOut(timeout);
   };
+
+  useEffect(() => {
+    socket?.on("userTyping", (data) => {
+      console.log("received user typing", data);
+      if (data.chatId === selectedUser && data.userId !== loggedInUser?._id) {
+        setIsTyping(true);
+      }
+    });
+
+    socket?.on("userStoppedTyping", (data) => {
+      console.log("received user stopped typing", data);
+      if (data.chatId === selectedUser && data.userId !== loggedInUser?._id) {
+        setIsTyping(false);
+      }
+    });
+
+    return () => {
+      socket?.off("userTyping");
+      socket?.off("userStoppedTyping");
+    }
+  }, [socket, selectedUser, loggedInUser?._id]);
 
   useEffect(() => {
     if (selectedUser) {
       fetchChat();
+      setIsTyping(false);
+
+      socket?.emit("joinChat", selectedUser);
+
+      return () => {
+        socket?.emit("leaveChat", selectedUser);
+        setMessages(null);
+      };
     }
-  }, [selectedUser]);
+  }, [selectedUser, socket]);
+
+  useEffect(() => {
+    return () => {
+      if (typingTimeOut) {
+        clearTimeout(typingTimeOut);
+      }
+    };
+  }, [typingTimeOut]);
 
   if (loading) return <Loading />
   return (
     <div className='min-h-screen flex bg-gray-900 text-white relative overflow-hidden'>
-      <ChatSidebar sidebarOpen={siderbarOpen} setSidebarOpen={setSiderbarOpen} showAllUsers={showAllUser}
-        setShowAllUsers={setShowAllUser} users={users} loggedInUser={loggedInUser} chats={chats}
-        selectedUser={selectedUser} setSelectedUser={setSelectedUser} handleLogout={handleLogout}
-        createChat={createChat} />
+      <ChatSidebar
+        sidebarOpen={siderbarOpen}
+        setSidebarOpen={setSiderbarOpen}
+        showAllUsers={showAllUser}
+        setShowAllUsers={setShowAllUser}
+        users={users}
+        loggedInUser={loggedInUser}
+        chats={chats}
+        selectedUser={selectedUser}
+        setSelectedUser={setSelectedUser}
+        handleLogout={handleLogout}
+        createChat={createChat}
+        onlineUsers={onlineUsers}
+      />
 
       <div className="flex-1 flex flex-col justify-between p-4 backdrop-blur-xl bg-white/5 border 
       border-white/10">
-        <ChatHeader user={user} setSideBarOpen={setSiderbarOpen} isTyping={isTyping} />
+        <ChatHeader user={user} setSideBarOpen={setSiderbarOpen} isTyping={isTyping} onlineUsers={onlineUsers} />
 
         <ChatMessages selectedUser={selectedUser} messages={messages} loggedInUser={loggedInUser} />
 

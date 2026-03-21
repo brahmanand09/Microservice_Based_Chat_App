@@ -11,7 +11,7 @@ interface SocketContextType {
 
 const SocketContext = createContext<SocketContextType>({
     socket: null,
-    onlineUser: [],
+    onlineUsers: [],
 });
 
 interface ProviderProps {
