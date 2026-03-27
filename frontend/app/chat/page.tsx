@@ -140,6 +140,7 @@ const ChatApp = () => {
       setSelectedUser(data.chatId);
       setShowAllUser(false);
       await fetchChats();
+      
     } catch (error) {
       toast.error("Failed to start chat");
     }
