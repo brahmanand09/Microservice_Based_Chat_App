@@ -1,4 +1,5 @@
-# Chat App with file upload
+# 💬 Chat App with File Upload (Microservices)
+### A fully scalable microservice-based real-time chat application with file upload support. Built using modern technologies and designed for performance, scalability, and responsiveness.
 
 ## 🚀 Technologies Used
 
