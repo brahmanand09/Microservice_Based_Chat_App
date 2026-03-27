@@ -26,5 +26,3 @@
 ### It's fully microservice based chat app.
 
 ### It'is fully responsive chat app with file upload support.
-
-### modify profile name.
