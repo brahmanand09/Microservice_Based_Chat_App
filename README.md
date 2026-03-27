@@ -1,4 +1,4 @@
-&# Chat App with file upload
+# Chat App with file upload
 
 ## 🚀 Technologies Used
 
