@@ -1,5 +1,7 @@
 # 💬 Chat App with File Upload (Microservices)
-### A fully scalable microservice-based real-time chat application with file upload support. Built using modern technologies and designed for performance, scalability, and responsiveness.
+A fully scalable **microservice-based real-time chat application** with file upload support. Built using modern technologies and designed for performance, scalability, and responsiveness.
+
+---
 
 ## 🚀 Technologies Used
 
@@ -19,11 +21,17 @@
 <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white"/>
 </p>
 
-## Project Based
+## 🧩 Project Type
 <p>
   <img src="https://img.shields.io/badge/Microservices-FF6F00?style=for-the-badge&logo=icloud&logoColor=white"/>
 </p>
 
-### It's fully microservice based chat app.
+## 🚀 Features
 
-### It'is fully responsive chat app with file upload support.
+- 🔐 JWT-based Authentication & Authorization  
+- 💬 Real-time Messaging using Socket.io  
+- 📁 File Upload (Images, Docs, Media) via Cloudinary  
+- 🧩 Microservices Architecture (Decoupled Services)  
+- ⚡ Fast Messaging with Redis Caching  
+- 📩 Event-driven Communication using RabbitMQ  
+- 📱 Fully Responsive UI (Mobile + Desktop)  
