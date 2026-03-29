@@ -34,4 +34,27 @@ A fully scalable **microservice-based real-time chat application** with file upl
 - 🧩 Microservices Architecture (Decoupled Services)  
 - ⚡ Fast Messaging with Redis Caching  
 - 📩 Event-driven Communication using RabbitMQ  
-- 📱 Fully Responsive UI (Mobile + Desktop)  
+- 📱 Fully Responsive UI (Mobile + Desktop)
+
+---
+
+## 🛠️ Tech Stack
+
+### Backend
+- Node.js  
+- Express.js  
+- MongoDB  
+- Redis  
+- RabbitMQ  
+- Socket.io  
+- JWT  
+
+### Frontend
+- Next.js  
+- React.js  
+- TypeScript  
+- Tailwind CSS  
+
+### DevOps & Tools
+- Docker  
+- Cloudinary  
