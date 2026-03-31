@@ -56,5 +56,5 @@ A fully scalable **microservice-based real-time chat application** with file upl
 - Tailwind CSS  
 
 ### DevOps & Tools
-- Docker  
+- Docker (Containerized)
 - Cloudinary (For image and file)
