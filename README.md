@@ -57,4 +57,4 @@ A fully scalable **microservice-based real-time chat application** with file upl
 
 ### DevOps & Tools
 - Docker  
-- Cloudinary  
+- Cloudinary (For image and file)
