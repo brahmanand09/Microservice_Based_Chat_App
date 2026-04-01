@@ -48,7 +48,6 @@ A fully scalable **microservice-based real-time chat application** with file upl
 - RabbitMQ  
 - Socket.io  
 - JWT
-- stach
 
 ### Frontend
 - Next.js  
