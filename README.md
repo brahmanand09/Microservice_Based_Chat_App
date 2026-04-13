@@ -58,3 +58,13 @@ A fully scalable **microservice-based real-time chat application** with file upl
 ### DevOps & Tools
 - Docker (Containerized)
 - Cloudinary (For image and file)
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/your-username/chat-app.git
+cd chat-app
+```
