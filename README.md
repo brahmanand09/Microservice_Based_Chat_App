@@ -66,5 +66,20 @@ A fully scalable **microservice-based real-time chat application** with file upl
 ### 1. Clone the repository
 ```bash
 git clone https://github.com/your-username/chat-app.git
-cd chat-app
+cd Microservice_Based_Chat_App
 ```
+
+### 2. Setup environment variables
+
+Create a `.env` file in each service:
+
+```env
+PORT=5000
+MONGO_URI=your_mongodb_url
+JWT_SECRET=your_secret
+REDIS_URL=your_redis_url
+RABBITMQ_URL=your_rabbitmq_url
+CLOUDINARY_URL=your_cloudinary_config
+```
+
+
