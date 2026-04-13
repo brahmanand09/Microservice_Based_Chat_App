@@ -82,4 +82,15 @@ RABBITMQ_URL=your_rabbitmq_url
 CLOUDINARY_URL=your_cloudinary_config
 ```
 
+### 3. Run using Docker
 
+```bash
+docker-compose up --build
+```
+
+### 4. Run manually (optional)
+
+```bash
+npm install
+npm run dev
+```
